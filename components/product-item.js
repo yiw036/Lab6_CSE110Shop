@@ -5,7 +5,30 @@ class ProductItem extends HTMLElement {
   constructor(product) {
     super();
     const shadow = this.attachShadow({mode: 'open'});
-    
+    const wrap = document.createElement('li');
+    wrap.setAttribute('class', 'product');
+
+
+    const image = document.createElement('img');
+    image.setAttribute('src', product['image']);
+    image.setAttribute('alt', product['title']);
+    image.setAttribute('width', 200);
+    wrap.appendChild(image);
+
+    const title = document.createElement('p');
+    title.setAttribute('class','title');
+    title.textContent = product['title'];
+    wrap.appendChild(title);
+
+    const price = document.createElement('p');
+    price.setAttribute('class', 'price');
+    price.textContent = '$'+ product['price'];
+    wrap.appendChild(price);
+
+    const add = document.createElement('button');
+    add.setAttribute('product-id', this.getAttribute('product-id'))
+
+
 
     let style = document.createElement('style');
     style.textContent = `
@@ -73,7 +96,9 @@ class ProductItem extends HTMLElement {
         text-overflow: unset;
       }
     `;
-
+        
+        shadow.appendChild(style);
+        shadow.appendChild(wrap);
   }
 }
 
